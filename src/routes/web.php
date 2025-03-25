@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\RegisteredUserController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,12 @@ use App\Http\Controllers\User\RegisteredUserController;
 */
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::get('/email/verify', [VerificationController::class, 'notice'])
+    ->name('verification.notice');
+Route::post('/email/resend', [VerificationController::class, 'resend'])
+    ->name('verification.resend');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [AttendanceController::class, 'index']);
+
 });

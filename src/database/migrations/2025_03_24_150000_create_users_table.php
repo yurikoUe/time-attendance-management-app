@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('status_id')->default(1)->constrained('user_statuses');
+            $table->foreignId('status_id')->default(1)->constrained('user_statuses'); //デフォルトステータスを「勤務外」に設定
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
