@@ -19,4 +19,5 @@ yarn-error.log
 docker/mysql/data/
 
 # 環境設定ファイル
-/src/.env
+/docker/mysql/data/*
+!/docker/mysql/data/.gitignore
