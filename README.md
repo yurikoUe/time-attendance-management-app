@@ -224,7 +224,7 @@ DB_PASSWORD=laravel_pass
 
 以下は、プロジェクトのER図です。
 
-![ER図](src/public/er-diagram.png)
+![ER図](docs/er-diagram.png)
 
 
 ## URL
