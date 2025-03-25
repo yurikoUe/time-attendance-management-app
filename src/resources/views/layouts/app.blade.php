@@ -19,16 +19,19 @@
           Attendance Management
         </a>
         <nav>
+          @if (Auth::check())
           <ul class="header-nav">
             <li class="header-nav__item">
               <a class="header-nav__link" href="/mypage">マイページ</a>
             </li>
             <li class="header-nav__item">
-              <form>
+              <form class="form" action="/logout" method="post">
+                @csrf
                 <button class="header-nav__button">ログアウト</button>
               </form>
             </li>
           </ul>
+          @endif
         </nav>
       </div>
     </div>

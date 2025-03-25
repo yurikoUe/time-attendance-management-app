@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserAttendanceController;
+use App\Http\Controllers\User\AttendanceController;
+use App\Http\Controllers\User\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,8 @@ use App\Http\Controllers\UserAttendanceController;
 |
 */
 
+Route::get('/register', [RegisteredUserController::class, 'create']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [UserAttendanceController::class, 'index']);
+    Route::get('/', [AttendanceController::class, 'index']);
 });
