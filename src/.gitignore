@@ -16,7 +16,9 @@ yarn-error.log
 
 # 追加
 # MySQLデータ関連
-docker/mysql/data/
+# 環境設定ファイル
+/docker/mysql/data/*
+!/docker/mysql/data/.gitignore
 
 # 環境設定ファイル
 /src/.env
