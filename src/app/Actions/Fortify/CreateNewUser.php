@@ -27,6 +27,7 @@ class CreateNewUser implements CreatesNewUsers
                 'email',
                 'max:255',
                 Rule::unique(User::class),
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', //メールアドレスのフォーマットをチェック
             ],
             'password' => $this->passwordRules(),
         ])->validate();

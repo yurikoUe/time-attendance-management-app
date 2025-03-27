@@ -24,5 +24,5 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [AttendanceController::class, 'index']);
-
+    Route::get('/attendance', [AttendanceController::class, 'create']);
 });

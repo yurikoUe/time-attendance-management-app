@@ -11,4 +11,9 @@ class AttendanceController extends Controller
     {
         return view('user.attendance.index');
     }
+
+    public function create()
+    {
+        return view('user.attendance.create');
+    }
 }
