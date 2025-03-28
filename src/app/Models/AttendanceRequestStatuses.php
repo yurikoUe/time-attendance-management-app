@@ -11,4 +11,8 @@ class AttendanceRequestStatuses extends Model
 
     protected $fillable = ['name'];
     
+    public function attendanceRequests()
+    {
+        return $this->hasMany(BreakTime::class);
+    }
 }

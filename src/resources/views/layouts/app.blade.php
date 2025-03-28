@@ -16,7 +16,7 @@
     <div class="header__inner">
       <div class="header-utilities">
         <a class="header__logo" href="/">
-          Attendance Management
+          <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
         </a>
         <nav>
           @if (Auth::check())
