@@ -67,11 +67,11 @@
             </div>
         </div>
         <div class="form__button">
-            <button class="form__button-submit" type="submit">登録</button>
+            <button class="form__button-submit" type="submit">登録する</button>
         </div>
     </form>
     <div class="login__link">
-        <a class="login__button-submit" href="/login">ログインの方はこちら</a>
+        <a href="/login">ログインはこちら</a>
     </div>
 </div>
 @endsection
