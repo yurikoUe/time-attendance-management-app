@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -44,18 +45,19 @@ class FortifyServiceProvider extends ServiceProvider
                 : view('user.login'); // ユーザー用ログイン画面
         });
 
-        // 管理者の認証処理のみカスタマイズ
         Fortify::authenticateUsing(function (Request $request) {
-            if ($request->is('admin/*')) {
-                // 管理者の認証処理
-                $admin = Admin::where('email', $request->email)->first();
-                if ($admin && password_verify($request->password, $admin->password)) {
-                    Auth::guard('admin')->login($admin);
-                    return $admin;
-                }
-                return null; // 認証失敗
+            // 管理者ルートでないなら、通常のユーザー認証へ
+            if (!$request->is('admin/*')) {
+                return Auth::attempt($request->only('email', 'password')) 
+                    ? Auth::user() 
+                    : null;
             }
-            return null; // Fortify のデフォルト認証を適用
+
+            // 管理者認証
+            $admin = Admin::where('email', $request->email)->first();
+            return ($admin && password_verify($request->password, $admin->password))
+                ? $admin
+                : null;
         });
 
         // ログイン試行回数の制限
