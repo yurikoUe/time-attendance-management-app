@@ -15,7 +15,7 @@
   <header class="header">
     <div class="header__inner">
       <div class="header-utilities">
-        <a class="header__logo" href="/">
+        <a class="header__logo" href="{{ route('attendance.index') }}">
           <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
         </a>
         <nav>

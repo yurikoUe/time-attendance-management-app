@@ -1,0 +1,103 @@
+.attendance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10%;
+}
+
+/* ステータス */
+.status {
+    background-color: rgb(220, 217, 217);
+    color: rgb(83, 81, 81);
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 30px;
+    font-size: 20px;
+    margin: 10px;
+}
+
+/* 日付 */
+.date {
+    font-size: 40px;
+    margin: 10px;
+}
+
+/* 時間 */
+.time {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+/* ボタン全体 */
+.action-form {
+    margin: 50px;
+}
+
+/* 通常ボタン */
+.action-form__button {
+    padding: 10px 50px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    margin: 10px;
+    display: inline-block;
+}
+
+/* 休憩用ボタン（色違い） */
+.action-form__button--break {
+    background-color: rgb(183, 183, 183);
+    color: black;
+}
+
+/* タブレット対応 */
+@media (max-width: 850px) {
+    .status {
+        font-size: 18px;
+    }
+
+    .date {
+        font-size: 30px;
+    }
+
+    .time {
+        font-size: 45px;
+    }
+
+    .action-form__button {
+        font-size: 30px;
+        padding: 10px 30px;
+    }
+}
+
+/* スマホ対応 */
+@media (max-width: 767px) {
+    .attendance {
+        padding: 5%;
+    }
+
+    .status {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .date {
+        font-size: 25px;
+    }
+
+    .time {
+        font-size: 35px;
+    }
+
+    .action-form {
+        margin: 20px;
+    }
+
+    .action-form__button {
+        font-size: 20px;
+        padding: 10px 0;
+        width: 100%;
+        /* ボタン幅いっぱい */
+    }
+}

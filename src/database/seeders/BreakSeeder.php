@@ -16,7 +16,6 @@ class BreakSeeder extends Seeder
      */
     public function run()
     {
-        // すでにある勤怠データから適当に取得
         $attendances = Attendance::all();
 
         foreach ($attendances as $attendance) {
@@ -30,7 +29,7 @@ class BreakSeeder extends Seeder
                 BreakTime::create([
                     'attendance_id' => $attendance->id,
                     'break_start' => Carbon::parse($attendance->clock_in)->addHours(3), // 出勤から3時間後に休憩開始
-                    'break_end' => Carbon::parse($attendance->clock_in)->addHours(3)->addMinutes(30), // 30分休憩
+                    'break_end' => Carbon::parse($attendance->clock_in)->addHours(3)->addMinutes(60), // 60分休憩
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

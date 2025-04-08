@@ -23,6 +23,7 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])
     ->name('verification.resend');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [AttendanceController::class, 'index']);
-    Route::get('/attendance', [AttendanceController::class, 'create']);
+    Route::get('/attendance', [AttendanceController::class, 'createAttendance'])
+    ->name('attendance.create');
+    Route::get('/attendance/list', [AttendanceController::class, 'index'])->name('attendance.index');
 });

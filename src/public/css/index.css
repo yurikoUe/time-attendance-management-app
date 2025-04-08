@@ -1,0 +1,207 @@
+/* 全体的なスタイリング */
+body {
+    background-color: #f5f5f5;
+}
+
+.attendance__container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+/* .attendance__alert {
+
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+} */
+
+.attendance__title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-left: 4px solid #000;
+    padding-left: 10px;
+}
+
+.attendance__month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 10px;
+}
+
+.attendance__nav-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.attendance__nav-link--prev,
+.attendance__nav-link--next {
+    color: #6e7072;
+}
+
+.attendance__month-display {
+    display: flex;
+    align-items: center;
+}
+
+.attendance__calendar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.attendance__month-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* テーブルのスタイリング */
+.attendance__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.attendance__table-header {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.attendance__table-cell {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.attendance__table-row:hover {
+    background-color: #f1f1f1;
+}
+
+.attendance__table-cell:last-child {
+    text-align: center;
+}
+
+/* レスポンシブ対応 */
+
+/* PC (1400-1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .attendance__container {
+        width: 80%;
+        /* 画面幅に応じて広めに */
+    }
+
+    .attendance__title {
+        font-size: 2.2rem;
+        /* タイトルのフォントサイズを少し大きく */
+    }
+
+    .attendance__month-text {
+        font-size: 1.7rem;
+        /* 月表示のフォントサイズを少し大きく */
+    }
+
+    .attendance__table-cell {
+        padding: 14px;
+        /* テーブルのセル内余白を増やす */
+    }
+}
+
+/* タブレット (768-850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .attendance__container {
+        width: 90%;
+        /* タブレットで画面幅を広く使う */
+    }
+
+    .attendance__title {
+        font-size: 1.8rem;
+        /* タイトルのフォントサイズを小さく */
+    }
+
+    .attendance__nav-link {
+        font-size: 1rem;
+        /* ナビゲーションリンクのフォントサイズを小さく */
+    }
+
+    .attendance__month-text {
+        font-size: 1.3rem;
+        /* 月表示のフォントサイズを小さく */
+    }
+
+    .attendance__calendar-icon {
+        width: 16px;
+        height: 16px;
+        /* アイコンサイズを小さく */
+    }
+
+    .attendance__table-cell {
+        padding: 10px;
+        /* テーブルのセル内余白を少なく */
+    }
+}
+
+/* スマホ (480px 以下) */
+@media (max-width: 480px) {
+    .attendance__container {
+        width: 95%;
+        /* スマホではほぼ全幅を使う */
+    }
+
+    .attendance__title {
+        font-size: 1.6rem;
+        /* タイトルのフォントサイズをさらに小さく */
+        text-align: center;
+        /* タイトルを中央寄せ */
+    }
+
+    .attendance__month-navigation {
+        align-items: center;
+        padding: 15px;
+    }
+
+    .attendance__nav-link {
+        font-size: 1rem;
+        /* ナビゲーションリンクのフォントサイズを小さく */
+    }
+
+    .attendance__month-text {
+        font-size: 1.2rem;
+        /* 月表示のフォントサイズを小さく */
+    }
+
+    .attendance__calendar-icon {
+        width: 14px;
+        height: 14px;
+        /* アイコンサイズをさらに小さく */
+    }
+
+    .attendance__table {
+        font-size: 0.9rem;
+        /* テーブル内のフォントサイズを小さく */
+    }
+
+    .attendance__table-cell {
+        padding: 8px;
+        /* テーブルのセル内余白をさらに少なく */
+    }
+
+    .attendance__table-header {
+        font-size: 1rem;
+        /* ヘッダーのフォントサイズを小さく */
+    }
+
+    .attendance__table-cell:last-child {
+        text-align: left;
+        /* 最後のセルのテキストを左寄せにする */
+    }
+}
