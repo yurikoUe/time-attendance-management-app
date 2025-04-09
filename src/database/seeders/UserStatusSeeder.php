@@ -12,7 +12,7 @@ class UserStatusSeeder extends Seeder
     {
         DB::table('user_statuses')->insert([
             ['name' => '勤務外'],
-            ['name' => '勤務中'],
+            ['name' => '出勤中'],
             ['name' => '休憩中'],
             ['name' => '退勤済'],
         ]);

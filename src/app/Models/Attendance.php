@@ -72,11 +72,17 @@ class Attendance extends Model
         . str_pad($totalBreakMinutes % 60, 2, '0', STR_PAD_LEFT);
     }
 
-    // フォーマットされた日付（漢字の曜日付き）を取得するアクセサ
+    // フォーマットされた日付「月/日(曜日)」を取得するアクセサ　例：05/01(木)
     public function getFormattedWorkDateAttribute()
     {
-        // `work_date` を「月/日(曜日)」形式に変換
         return $this->work_date->format('m/d') . '(' . $this->work_date->locale('ja')->isoFormat('ddd') . ')';
     }
+
+    // フォーマットされた日付「年月日」を取得するアクセサ　例：2025年5月1日　
+    public function getFormattedWorkDateYmdAttribute()
+    {
+        return $this->work_date->format('Y年n月j日');
+    }
+
 
 }

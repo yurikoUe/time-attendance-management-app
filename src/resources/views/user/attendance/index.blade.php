@@ -63,7 +63,9 @@
           -
         @endif
       </td>
-      <td class="attendance__table-cell">詳細</td>
+      <td class="attendance__table-cell">
+        <a href="{{ route('attendance-detail.show', ['id' => $attendance->id]) }}">詳細</a>
+      </td>
     </tr>
     @endforeach
   </table>

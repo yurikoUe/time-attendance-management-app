@@ -1,3 +1,13 @@
+/* 全体的なスタイリング */
+body {
+    background-color: #f5f5f5;
+}
+
+.alert alert-danger {
+    color: red;
+    background-color: rgb(249, 216, 222);
+}
+
 .attendance {
     display: flex;
     flex-direction: column;
@@ -34,8 +44,14 @@
     margin: 50px;
 }
 
+.working-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* 通常ボタン */
-.action-form__button {
+.working-actions__button {
     padding: 10px 50px;
     border-radius: 20px;
     background-color: black;
@@ -43,61 +59,65 @@
     font-size: 40px;
     margin: 10px;
     display: inline-block;
+    transition: all 0.3s ease;
 }
 
-/* 休憩用ボタン（色違い） */
-.action-form__button--break {
-    background-color: rgb(183, 183, 183);
+.working-actions__button:hover {
+    background-color: white;
     color: black;
+    border: 1px solid black;
 }
 
-/* タブレット対応 */
-@media (max-width: 850px) {
-    .status {
-        font-size: 18px;
-    }
-
-    .date {
-        font-size: 30px;
-    }
-
-    .time {
-        font-size: 45px;
-    }
-
-    .action-form__button {
-        font-size: 30px;
-        padding: 10px 30px;
-    }
+/* 休憩用ボタン */
+.break-action-form__button {
+    padding: 10px 50px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    color: black;
+    font-size: 40px;
+    margin: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
 }
 
-/* スマホ対応 */
-@media (max-width: 767px) {
-    .attendance {
-        padding: 5%;
-    }
+.break-action-form__button:hover {
+    background-color: #eee;
+    color: black;
+    border: 1px solid black;
+}
 
-    .status {
-        font-size: 16px;
-        padding: 8px 16px;
-    }
+/* 退勤後メッセージ */
+.action-form__message {
+    font-size: 30px;
+}
 
-    .date {
-        font-size: 25px;
-    }
-
-    .time {
-        font-size: 35px;
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    .working-actions {
+        gap: 10px;
     }
 
     .action-form {
-        margin: 20px;
+        margin: 0;
     }
 
-    .action-form__button {
-        font-size: 20px;
-        padding: 10px 0;
+    .working-actions__button,
+    .break-action-form__button {
         width: 100%;
-        /* ボタン幅いっぱい */
+        font-size: 26px;
+        padding: 15px 0;
+    }
+
+    .date {
+        font-size: 26px;
+    }
+
+    .time {
+        font-size: 50px;
+    }
+
+    .status {
+        font-size: 18px;
     }
 }

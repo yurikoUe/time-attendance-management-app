@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\RegisteredUserController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\BreakController;
+use App\Http\Controllers\AttendanceListController;
+use App\Http\Controllers\AttendanceRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +26,24 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])
     ->name('verification.resend');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+   
+
+    // 勤怠登録（出勤、退勤）
+    Route::post('/attendance/start', [AttendanceController::class, 'start'])->name('attendances.start');
+    Route::post('/attendance/end', [AttendanceController::class, 'end'])->name('attendances.end');
     Route::get('/attendance', [AttendanceController::class, 'createAttendance'])
     ->name('attendance.create');
-    Route::get('/attendance/list', [AttendanceController::class, 'index'])->name('attendance.index');
+
+    // 勤怠登録（休憩）
+    Route::post('/breaks/start', [BreakController::class, 'start'])->name('breaks.start');
+    Route::post('/breaks/end', [BreakController::class, 'end'])->name('breaks.end');
+
+    // 勤怠一覧
+    Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance.index');
+
+    // 勤怠詳細表示
+    Route::get('/attendance/{id}', [AttendanceListController::class, 'show'])->name('attendance-detail.show');
+
+    // 修正申請処理
+    Route::post('/attendance/{id}/request', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
 });

@@ -63,5 +63,32 @@
 
 .login__link a {
     text-decoration: none;
-    color: #0073cc;
+    color: #000;
+}
+
+/* --- レスポンシブ対応 --- */
+
+/* PC（1400px〜1540px はベースのまま） */
+
+/* タブレット（768px〜850px） */
+@media screen and (max-width: 850px) {
+    .form {
+        width: 70%;
+    }
+}
+
+/* スマホ（〜767px） */
+@media screen and (max-width: 767px) {
+    .form {
+        width: 100%;
+    }
+
+    .register-form__content {
+        padding: 20px 20px;
+    }
+
+    .form__button-submit {
+        height: 45px;
+        font-size: 14px;
+    }
 }
