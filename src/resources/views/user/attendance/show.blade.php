@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
 @endsection
 
 @section('content')
@@ -9,11 +9,11 @@
   {{-- エラーメッセージやフラッシュメッセージ用 --}}
 </div>
 
-<div>
-    <h1>勤怠詳細</h1>
+<div class="attendance-detail">
+    <h1 class="attendance-detail__title">勤怠詳細</h1>
 
     @if ($isRequestPending)
-        <table>
+        <table class="attendance-detail__table">
             <tr>
                 <th>名前</th>
                 <td colspan="3">{{ $attendance->user->name }}</td>
@@ -56,9 +56,9 @@
         <p>*承認待ちのため修正できません</p>
     @else
 
-        <form action="{{ route('attendance-request.store', ['id' => $attendance->id]) }}" method="POST">
+        <form action="{{ route('attendance-request.store', ['id' => $attendance->id]) }}" method="POST" class="attendance-detail__form">
             @csrf
-            <table>
+            <table class="attendance-detail__table">
                 <tr>
                     <th>名前</th>
                     <td colspan="3">{{ $attendance->user->name }}</td>
@@ -71,22 +71,22 @@
                 <tr>
                     <th>出勤・退勤</th>
                     <td>
-                        <input type="time" name="clock_in" value="{{ $attendance->formatted_clock_in }}">
+                        <input type="time" name="clock_in" value="{{ $attendance->formatted_clock_in }}" class="attendance-detail__input">
                     </td>
                     <td>〜</td>
                     <td>
-                        <input type="time" name="clock_out" value="{{ $attendance->formatted_clock_out }}">
+                        <input type="time" name="clock_out" value="{{ $attendance->formatted_clock_out }}" class="attendance-detail__input">
                     </td>
                 </tr>
                 @foreach ($attendance->breakTimes as $break)
                     <tr>
                         <th>休憩</th>
                         <td>
-                            <input type="time" name="breaks[{{ $loop->index }}][break_start]" value="{{ $break->formatted_break_start }}">
+                            <input type="time" name="breaks[{{ $loop->index }}][break_start]" value="{{ $break->formatted_break_start }}" class="attendance-detail__input">
                         </td>
                         <td>〜</td>
                         <td>
-                            <input type="time" name="breaks[{{ $loop->index }}][break_end]" value="{{ $break->formatted_break_end }}">
+                            <input type="time" name="breaks[{{ $loop->index }}][break_end]" value="{{ $break->formatted_break_end }}" class="attendance-detail__input">
                         </td>
                         
                     </tr>
@@ -94,11 +94,13 @@
                 <tr>
                     <th>備考</th>
                     <td colspan="3">
-                        <textarea name="request_reason"></textarea>
+                        <textarea name="request_reason" class="attendance-detail__input--reason"></textarea>
                     </td>
                 </tr>
             </table>
-            <button>修正</button>
+            <div class="attendance-detail__button-wrap">
+                <button class="attendance-detail__button">修正</button>
+            </div>
         </form>
     @endif
 </div>

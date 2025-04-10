@@ -36,9 +36,6 @@ class AttendanceListController extends Controller
 
     public function show($id)
     {
-        // $attendance = Attendance::with('user', 'breakTimes')
-        //                             ->where('id', $id)
-        //                             ->firstOrFail(); //idが一致するものを取得
 
         $attendance = Attendance::with('user', 'breakTimes', 'attendanceRequests')
         ->findOrFail($id);
