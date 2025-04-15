@@ -96,7 +96,7 @@ class AttendanceRequestController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
-        return view('user.attendance_requests.index', [
+        return view('user.requests.index', [
             'requests' => $requests,
             'status' => $statusParam,
         ]);
