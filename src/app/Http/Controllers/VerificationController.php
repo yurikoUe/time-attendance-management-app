@@ -17,7 +17,7 @@ class VerificationController extends Controller
     {
         if (auth()->user() && !auth()->user()->hasVerifiedEmail()) {
             auth()->user()->sendEmailVerificationNotification();
-            return back()->with('status', 'Verification link sent!');
+            return back()->with('status', 'verification-link-sent');
         }
 
         return redirect()->route('verification.notice');

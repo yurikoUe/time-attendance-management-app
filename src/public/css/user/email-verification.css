@@ -1,0 +1,56 @@
+/* ベーススタイル */
+.verification {
+    text-align: center;
+    padding: 10%
+}
+
+.verification__message {
+    font-size: 1.5rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.verification__alert {
+    font-size: 1rem;
+    color: #3c763d;
+    /* 成功メッセージの色 */
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    padding: 1rem;
+    margin: 0;
+}
+
+.verification__link {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 30px;
+    color: black;
+    background-color: rgb(226, 223, 223);
+    text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.verification__link:hover {
+    background-color: #9d9f9bb8;
+}
+
+.verification__form {
+    margin-bottom: 1.5rem;
+    margin: 50px;
+}
+
+.verification__button {
+    font-size: 1.3rem;
+    color: rgb(12, 169, 236);
+    background-color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.verification__button:hover {
+    color: #000;: black;
+}
