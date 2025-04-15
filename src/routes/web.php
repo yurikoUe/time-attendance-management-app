@@ -24,6 +24,10 @@ Route::get('/admin/login', function(){
     return view('admin.login');
 });
 
+Route::middleware(['auth:admin'])->group(function () {
+    // 管理者ルート（verified は不要）
+});
+
 // ユーザールート
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::get('/email/verify', [VerificationController::class, 'notice'])
@@ -31,7 +35,7 @@ Route::get('/email/verify', [VerificationController::class, 'notice'])
 Route::post('/email/resend', [VerificationController::class, 'resend'])
     ->name('verification.resend');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth:web', 'verified'])->group(function () {
 Route::redirect('/', '/attendance');
 
     // 勤怠登録（出勤、退勤）
