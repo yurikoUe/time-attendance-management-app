@@ -40,6 +40,8 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        //管理者用のガードを追加
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -69,6 +71,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        //管理者用のガードを追加
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,

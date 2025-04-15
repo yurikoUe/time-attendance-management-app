@@ -19,6 +19,12 @@ use App\Http\Controllers\User\AttendanceRequestController;
 |
 */
 
+// 管理者ルート
+Route::get('/admin/login', function(){
+    return view('admin.login');
+});
+
+// ユーザールート
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::get('/email/verify', [VerificationController::class, 'notice'])
     ->name('verification.notice');

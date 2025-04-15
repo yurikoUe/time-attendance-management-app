@@ -53,11 +53,14 @@ class FortifyServiceProvider extends ServiceProvider
                     : null;
             }
 
-            // 管理者認証
+            // 管理者ログイン処理（メール認証はなし）
             $admin = Admin::where('email', $request->email)->first();
-            return ($admin && password_verify($request->password, $admin->password))
-                ? $admin
-                : null;
+            if ($admin && password_verify($request->password, $admin->password)) {
+                Auth::guard('admin')->login($admin); // 管理者用ガードでログイン
+                return $admin;
+            }
+
+            return null;
         });
 
         // ログイン試行回数の制限
