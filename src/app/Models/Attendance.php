@@ -78,11 +78,16 @@ class Attendance extends Model
         return $this->work_date->format('m/d') . '(' . $this->work_date->locale('ja')->isoFormat('ddd') . ')';
     }
 
-    // フォーマットされた日付「年月日」を取得するアクセサ　例：2025年5月1日　
-    public function getFormattedWorkDateYmdAttribute()
+    // フォーマットされた日付「年」を取得するアクセサ　例：2025年
+    public function getFormattedWorkDateYearAttribute()
     {
-        return $this->work_date->format('Y年n月j日');
+        return $this->work_date->format('Y年');
     }
 
+    // フォーマットされた日付「月日」を取得するアクセサ　例：5月1日　
+    public function getFormattedWorkDateMonthDayAttribute()
+    {
+        return $this->work_date->format('n月j日');
+    }
 
 }

@@ -15,10 +15,25 @@ class AttendanceController extends Controller
 
     public function createAttendance()
     {
-
         $user = auth()->user();  // ログインユーザーを取得
-        $userStatusName = $user->status->name;
         $today = \Carbon\Carbon::today();
+
+        // 本日出勤しているかチェック
+        $todayAttendance = Attendance::where('user_id', $user->id)
+            ->where('work_date', $today)
+            ->first();
+        
+        //ステータスが退勤済み ＆ 本日未出勤
+        if ($user->status->name === '退勤済み' && is_null($todayAttendance)){
+
+            // 「勤務外」のレコードを検索し、そのidを取得
+            $user->status_id = UserStatus::where('name','勤務外')->first()->id;
+            //ステータスを勤務外に更新
+            $user->save();
+        }
+        
+        $userStatusName = $user->status->name;
+        
         $todayFormatted = $today->format('Y年m月d日') . '(' . $today->locale('ja')->isoFormat('dd') . ')'; // 日本語の曜日
 
         return view('user.attendance.create', compact('todayFormatted', 'userStatusName'));

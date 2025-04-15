@@ -3,15 +3,6 @@ body {
     background-color: #f5f5f5;
 }
 
-/* .attendance__alert {
-    margin-bottom: 16px;
-    padding: 8px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-} */
-
 .attendance-detail {
     max-width: 800px;
     margin: 0 auto;
@@ -19,9 +10,11 @@ body {
 }
 
 .attendance-detail__title {
-    font-size: 24px;
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    border-left: 4px solid #000;
+    padding-left: 10px;
 }
 
 .attendance-detail__table {
@@ -40,11 +33,9 @@ body {
 .attendance-detail__table th,
 .attendance-detail__table td {
     border-bottom: 1px solid #ddd;
-    padding: 15px;
+    padding: 20px 50px;
     text-align: center;
 }
-
-
 
 .attendance-detail__form {
     display: flex;
@@ -53,9 +44,17 @@ body {
 }
 
 .attendance-detail__input {
-    width: 60%;
     padding: 4px;
     font-weight: bold;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width: 100%;
+    font-size: 16px;
+    color: #000;
 }
 
 .attendance-detail__input--reason {
@@ -64,7 +63,7 @@ body {
 }
 
 .attendance-detail__input,
-.attendance-detail__input--reason{
+.attendance-detail__input--reason {
     border: 1px solid #ddd;
 }
 
@@ -79,13 +78,14 @@ body {
 }
 
 .attendance-detail__button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     background-color: black;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 30%;
+    font-size: 20px;
+    width: 20%;
 }
 
 .attendance-detail__button:hover {
@@ -93,6 +93,62 @@ body {
 }
 
 .attendance-detail__message {
-    color: #d9534f;
-    font-size: 14px;
+    
+    text-align: right;
+}
+
+.attendance-detail__message p {
+    color: red;
+    font-size: 20px;
+    
+}
+
+.invalid-feedback {
+    color: red;
+    text-align: left;
+}
+
+
+/* ======================== */
+/* レスポンシブ対応 */
+/* ======================== */
+
+
+/* タブレット (768px〜850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .attendance-detail__table th,
+    .attendance-detail__table td {
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+
+    .attendance-detail__title {
+        font-size: 1.75rem;
+    }
+
+    .attendance-detail__button {
+        font-size: 18px;
+    }
+}
+
+/* スマホ (〜767px) */
+@media screen and (max-width: 767px) {
+
+    .attendance-detail__table th,
+    .attendance-detail__table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .attendance-detail__title {
+        font-size: 1.5rem;
+    }
+
+    .attendance-detail__button {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    
 }

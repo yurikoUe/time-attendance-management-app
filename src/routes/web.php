@@ -5,8 +5,8 @@ use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\RegisteredUserController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\BreakController;
-use App\Http\Controllers\AttendanceListController;
-use App\Http\Controllers\AttendanceRequestController;
+use App\Http\Controllers\User\AttendanceListController;
+use App\Http\Controllers\User\AttendanceRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])
     ->name('verification.resend');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-   
+Route::redirect('/', '/attendance');
 
     // 勤怠登録（出勤、退勤）
     Route::post('/attendance/start', [AttendanceController::class, 'start'])->name('attendances.start');
@@ -46,4 +46,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // 修正申請処理
     Route::post('/attendance/{id}/request', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
+
+    Route::get('/attendance-requests', [AttendanceRequestController::class, 'index'])->name('attendance-request.index');
 });

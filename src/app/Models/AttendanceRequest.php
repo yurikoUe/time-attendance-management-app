@@ -21,5 +21,13 @@ class AttendanceRequest extends Model
         return $this->belongsTo(AttendanceRequestStatus::class);
     }
 
-    
+    public function details()
+    {
+        return $this->hasOne(AttendanceRequestDetail::class);
+    }
+
+    public function breaks()
+    {
+        return $this->hasMany(AttendanceRequestBreak::class);
+    }
 }
