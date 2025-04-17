@@ -9,6 +9,7 @@ use App\Http\Controllers\BreakController;
 use App\Http\Controllers\User\AttendanceListController as UserAttendanceListController;
 use App\Http\Controllers\Admin\AttendanceListController as AdminAttendanceListController;;
 use App\Http\Controllers\User\AttendanceRequestController;
+use App\Http\Controllers\Admin\StaffsController;
 
 
 /*
@@ -31,6 +32,7 @@ Route::get('/admin/login', function(){
 Route::middleware(['auth:admin'])->group(function () {
     Route::redirect('/', '/admin/attendance/list');
     Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.index');
+    Route::get('/admin/staff/list', [StaffsController::class, 'index'])->name('staff.list');
 });
 
 //ユーザーと管理者の両方とも認証 (カスタムミドルウェア)
