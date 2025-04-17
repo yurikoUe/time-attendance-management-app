@@ -8,12 +8,16 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -39,25 +43,29 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         // ログイン画面の振り分け（ユーザー or 管理者）
-        Fortify::loginView(function (Request $request) {
-            return $request->is('admin/*') 
-                ? view('admin.login') // 管理者用ログイン画面
-                : view('user.login'); // ユーザー用ログイン画面
+        Fortify::loginView(function (){
+            if(request()->is('admin/*')){
+                return view('admin.login');
+            }
+            return view('user.login');
         });
 
         Fortify::authenticateUsing(function (Request $request) {
-            // 管理者ルートでないなら、通常のユーザー認証へ
-            if (!$request->is('admin/*')) {
-                return Auth::attempt($request->only('email', 'password')) 
-                    ? Auth::user() 
-                    : null;
-            }
 
-            // 管理者ログイン処理（メール認証はなし）
-            $admin = Admin::where('email', $request->email)->first();
-            if ($admin && password_verify($request->password, $admin->password)) {
-                Auth::guard('admin')->login($admin); // 管理者用ガードでログイン
-                return $admin;
+            // 管理者ログインかどうかをURLde判定
+            if ($request->is('admin/*')){
+                $admin = Admin::where('email', $request->email)->first();
+                
+                if($admin && Hash::check($request->password, $admin->password)){
+                    Auth::guard('admin')->login($admin);
+                    return $admin; // Fortifyがadminガードでログイン
+                } 
+                
+            } else {
+                $user = User::where('email', $request->email)->first();
+                if ($user && Hash::check($request->password, $user->password)){
+                    return $user; // Fortifyがwebガードでログイン
+                }
             }
 
             return null;
@@ -69,5 +77,25 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(10)->by($email . $request->ip());
         });
+
+        // 管理者ログイン用のPOSTルートを追加
+        Route::post('/admin/login', function (Request $request) {
+            $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
+
+            if (Auth::guard('admin')->attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+            ], $request->boolean('remember'))) {
+                $request->session()->regenerate();
+                return redirect('/admin/attendance/list');
+            }
+
+            return back()->withErrors([
+                'email' => '管理者ログインに失敗しました。',
+            ]);
+        })->middleware(['web'])->name('admin.login.submit');
     }
 }

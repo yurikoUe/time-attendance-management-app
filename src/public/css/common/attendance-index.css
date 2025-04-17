@@ -25,7 +25,7 @@ body {
     padding-left: 10px;
 }
 
-.attendance__month-navigation {
+.attendance__navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +46,7 @@ body {
     color: #6e7072;
 }
 
-.attendance__month-display {
+.attendance__display {
     display: flex;
     align-items: center;
 }
@@ -57,7 +57,7 @@ body {
     margin-right: 8px;
 }
 
-.attendance__month-text {
+.attendance__text {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;

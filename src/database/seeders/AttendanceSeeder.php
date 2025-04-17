@@ -36,11 +36,12 @@ class AttendanceSeeder extends Seeder
         // 深夜勤務・日を跨ぐ勤務
         $this->createAttendance($user, Carbon::today()->subDay(1), 22, 6, true);
 
-        // 月ごとの勤怠データを一覧・集計表示する機能の動作確認のため、過去3ヶ月分のデータを作成
+        // 2ヶ月前から今日までのデータ
         $startDate = Carbon::today()->subMonths(2);
-        for($i = 0; $i < 40; $i++){
-            $workDate = (clone $startDate)->addDays($i);
-            $this->createAttendance($user, $workDate, 9, 18);
+        $endDate = Carbon::today();
+
+        for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+            $this->createAttendance($user, $date->copy(), 9, 18);
         }
     }
 

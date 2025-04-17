@@ -5,19 +5,16 @@
 @endsection
 
 @section('content')
-<div class="attendance__alert">
-  {{-- エラーメッセージやフラッシュメッセージ用 --}}
-</div>
 
 <div class="attendance__container">
   <h1 class="attendance__title">勤怠一覧</h1>
 
-  <div class="attendance__month-navigation">
+  <div class="attendance__navigation">
     <a href="{{ route('attendance.index', ['month' => $prevMonth]) }}" class="attendance__nav-link attendance__nav-link--prev">←前月</a>
 
-    <div class="attendance__month-display">
+    <div class="attendance__display">
       <img src="{{ asset('images/calendar.svg') }}" alt="カレンダーアイコン" class="attendance__calendar-icon">
-      <span class="attendance__month-text">{{ $currentMonth->format('Y/m') }}</span>
+      <span class="attendance__text">{{ $currentMonth->format('Y/m') }}</span>
     </div>
     
     <a href="{{ route('attendance.index', ['month' => $nextMonth]) }}" class="attendance__nav-link attendance__nav-link--next">翌月→</a>
@@ -50,18 +47,10 @@
         @endif
       </td>
       <td class="attendance__table-cell">
-        @if ($attendance->total_break_time)
-          {{ $attendance->total_break_time }}
-        @else
-          -
-        @endif
+        {{ $attendance->total_break_time ?? '' }}
       </td>
       <td class="attendance__table-cell">
-        @if ($attendance->total_work_time)
-          {{ $attendance->total_work_time }}
-        @else
-          -
-        @endif
+          {{ $attendance->total_work_time ?? '' }}
       </td>
       <td class="attendance__table-cell">
         <a href="{{ route('attendance-detail.show', ['id' => $attendance->id]) }}">詳細</a>
