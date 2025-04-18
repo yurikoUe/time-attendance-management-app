@@ -56,6 +56,11 @@
         </tr>
         @endforeach
     </table>
+    <div>
+        <form method="GET" action="{{ route('attendance.exportCsv', ['id' => $user->id, 'month' => $currentMonth->format('Y-m')]) }}">
+            <button type="submit" class="btn btn-primary">CSV出力</button>
+        </form>
+    </div>
 </div>
 
 @endsection

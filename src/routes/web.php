@@ -34,6 +34,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.index');
     Route::get('/admin/staff/list', [StaffsController::class, 'index'])->name('staff.list');
     Route::get('/admin/attendance/staff/{id}', [StaffsController::class, 'showAttendances'])->name('staff.attendance');
+    Route::get('/attendance/staff/{id}/export/{month}', [StaffsController::class, 'exportCsv'])->name('attendance.exportCsv');
 });
 
 //ユーザーと管理者の両方とも認証 (カスタムミドルウェア)
