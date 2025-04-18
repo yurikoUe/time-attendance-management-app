@@ -15,60 +15,58 @@
   <header class="header">
     <div class="header__inner">
       <div class="header-utilities">
+
         <a class="header__logo" href="{{ route('attendance.index') }}">
           <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
         </a>
+
         <nav>
           @php
             $user = Auth::guard('web')->user();
             $admin = Auth::guard('admin')->user();
           @endphp
 
-          @if (Auth::check())
-          
-
-            @if ($admin)
-              {{-- 管理者メニュー --}}
-              <ul class="header-nav">
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="/admin/attendance/list">勤怠一覧</a>
-                </li>
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="/admin/staff/list">スタッフ一覧</a>
-                </li>
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="">申請一覧</a>
-                </li>
-                <li class="header-nav__item">
-                  <form class="form" action="/logout" method="post">
-                    @csrf
-                    <button class="header-nav__button">ログアウト</button>
-                  </form>
-                </li>
-              </ul>
-
-            @elseif ($user)
-              {{-- 一般ユーザーメニュー --}}
-              <ul class="header-nav">
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="/attendance">勤怠</a>
-                </li>
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="/attendance/list">勤怠一覧</a>
-                </li>
-                <li class="header-nav__item">
-                  <a class="header-nav__link" href="">申請</a>
-                </li>
-                <li class="header-nav__item">
-                  <form class="form" action="/logout" method="post">
-                    @csrf
-                    <button class="header-nav__button">ログアウト</button>
-                  </form>
-                </li>
-              </ul>
-            @endif
+          @if ($admin)
+            {{-- 管理者メニュー --}}
+            <ul class="header-nav">
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/admin/attendance/list">勤怠一覧</a>
+              </li>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/admin/staff/list">スタッフ一覧</a>
+              </li>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="">申請一覧</a>
+              </li>
+              <li class="header-nav__item">
+                <form class="form" action="/logout" method="post">
+                  @csrf
+                  <button class="header-nav__button">ログアウト</button>
+                </form>
+              </li>
+            </ul>
+          @elseif ($user)
+            {{-- 一般ユーザーメニュー --}}
+            <ul class="header-nav">
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/attendance">勤怠</a>
+              </li>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="/attendance/list">勤怠一覧</a>
+              </li>
+              <li class="header-nav__item">
+                <a class="header-nav__link" href="">申請</a>
+              </li>
+              <li class="header-nav__item">
+                <form class="form" action="/logout" method="post">
+                  @csrf
+                  <button class="header-nav__button">ログアウト</button>
+                </form>
+              </li>
+            </ul>
           @endif
         </nav>
+        
       </div>
     </div>
   </header>
