@@ -35,15 +35,11 @@
       <td class="attendance__table-cell">
         @if ($attendance->clock_in)
           {{ $attendance->clock_in->format('H:i') }}
-        @else
-          -
         @endif
       </td>
       <td class="attendance__table-cell">
         @if ($attendance->clock_out)
           {{ $attendance->clock_out->format('H:i') }}
-        @else
-          -
         @endif
       </td>
       <td class="attendance__table-cell">

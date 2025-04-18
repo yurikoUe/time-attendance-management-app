@@ -23,7 +23,7 @@
 }
 
 .header-utilities nav {
-    width: 40%;
+    width: 60%;
     font-size: 24px;
 }
 
@@ -58,7 +58,7 @@
         margin-bottom: 10px;
     }
 
-    .header_logo img {
+    .header__logo img {
         padding-top: 20px;
     }
 
@@ -77,7 +77,7 @@
 }
 
 /* スマホサイズ（768px以下）の場合 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .header__inner {
         padding: 15px;
     }
@@ -99,14 +99,16 @@
     .header-nav {
         gap: 15px;
         justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
         margin: 0;
     }
 
     .header-nav__link {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .header-nav__button {
-        font-size: 18px;
+        font-size: 16px;
     }
 }
