@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/common/attendance-index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/csv-btn.css') }}">
 @endsection
 
 @section('content')
@@ -56,9 +57,9 @@
         </tr>
         @endforeach
     </table>
-    <div>
+    <div class="attendance__csv-btn">
         <form method="GET" action="{{ route('attendance.exportCsv', ['id' => $user->id, 'month' => $currentMonth->format('Y-m')]) }}">
-            <button type="submit" class="btn btn-primary">CSV出力</button>
+            <button type="submit" class="btn-primary">CSV出力</button>
         </form>
     </div>
 </div>

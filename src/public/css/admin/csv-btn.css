@@ -1,0 +1,13 @@
+.attendance__csv-btn {
+    text-align: right;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 18px;
+}
