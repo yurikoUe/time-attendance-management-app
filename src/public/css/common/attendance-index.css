@@ -155,14 +155,11 @@ body {
 @media (max-width: 480px) {
     .attendance__container {
         width: 95%;
-        /* スマホではほぼ全幅を使う */
     }
 
     .attendance__title {
         font-size: 1.6rem;
-        /* タイトルのフォントサイズをさらに小さく */
         text-align: center;
-        /* タイトルを中央寄せ */
     }
 
     .attendance__month-navigation {
@@ -172,37 +169,30 @@ body {
 
     .attendance__nav-link {
         font-size: 1rem;
-        /* ナビゲーションリンクのフォントサイズを小さく */
     }
 
     .attendance__month-text {
         font-size: 1.2rem;
-        /* 月表示のフォントサイズを小さく */
     }
 
     .attendance__calendar-icon {
         width: 14px;
         height: 14px;
-        /* アイコンサイズをさらに小さく */
     }
 
     .attendance__table {
         font-size: 0.9rem;
-        /* テーブル内のフォントサイズを小さく */
     }
 
     .attendance__table-cell {
         padding: 8px;
-        /* テーブルのセル内余白をさらに少なく */
     }
 
     .attendance__table-header {
         font-size: 1rem;
-        /* ヘッダーのフォントサイズを小さく */
     }
 
     .attendance__table-cell:last-child {
         text-align: left;
-        /* 最後のセルのテキストを左寄せにする */
     }
 }
