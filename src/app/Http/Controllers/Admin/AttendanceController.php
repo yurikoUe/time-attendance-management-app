@@ -8,5 +8,5 @@ use App\Models\Attendance;
 
 class AttendanceController extends Controller
 {
-    
+    //
 }

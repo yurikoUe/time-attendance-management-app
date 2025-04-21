@@ -13,7 +13,6 @@ class AttendanceListController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-
         // 表示する月（指定がなければ今月）を取得し、Carbonインスタンスに変換
         $month = $request->input('month', now()->format('Y-m'));
         $currentMonth = Carbon::parse($month);

@@ -8,7 +8,8 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\BreakController;
 use App\Http\Controllers\User\AttendanceListController as UserAttendanceListController;
 use App\Http\Controllers\Admin\AttendanceListController as AdminAttendanceListController;;
-use App\Http\Controllers\User\AttendanceRequestController;
+use App\Http\Controllers\User\AttendanceRequestController  as UserAttendanceRequestController;
+use App\Http\Controllers\Admin\AttendanceRequestController as AdminAttendanceRequestController;
 use App\Http\Controllers\Admin\StaffsController;
 
 
@@ -35,13 +36,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/staff/list', [StaffsController::class, 'index'])->name('staff.list');
     Route::get('/admin/attendance/staff/{id}', [StaffsController::class, 'showAttendances'])->name('staff.attendance');
     Route::get('/attendance/staff/{id}/export/{month}', [StaffsController::class, 'exportCsv'])->name('attendance.exportCsv');
+    // Route::get('/stamp_correction_request/list', [AdminAttendanceRequestController::class, 'index'])->name('attendance-request.index');
 });
 
-//ユーザーと管理者の両方とも認証 (カスタムミドルウェア)
-Route::middleware(['admin.or.user'])->group(function () {
-    Route::get('/attendance/{id}', [UserAttendanceListController::class, 'show'])->name('attendance-detail.show');
-    Route::post('/attendance/{id}', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
-});
+
 
 // ユーザールート
 Route::get('/register', [RegisteredUserController::class, 'create']);
@@ -67,12 +65,26 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
 
     // 勤怠一覧
     Route::get('/attendance/list', [UserAttendanceListController::class, 'index'])->name('attendance.index');
-
-    // 勤怠詳細表示
-    // Route::get('/attendance/{id}', [UserAttendanceListController::class, 'show'])->name('attendance-detail.show');
-
-    // 修正申請処理
     
-
-    Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index'])->name('attendance-request.index');
+    // 申請一覧画面
+    // Route::get('/stamp_correction_request/list', [UserAttendanceRequestController::class, 'index'])->name('attendance-request.index');
 });
+
+
+//ユーザーと管理者の両方とも認証 (カスタムミドルウェア)
+Route::middleware(['admin.or.user'])->group(function () {
+    Route::get('/attendance/{id}', [UserAttendanceListController::class, 'show'])->name('attendance-detail.show');
+    Route::post('/attendance/{id}', [UserAttendanceRequestController::class, 'store'])->name('attendance-request.store');
+    Route::get('/stamp_correction_request/list', function () {
+        if (auth()->guard('admin')->check()) {
+            return app(AdminAttendanceRequestController::class)->index(request());
+        }
+
+        if (auth()->guard('web')->check()) {
+            return app(UserAttendanceRequestController::class)->index(request());
+        }
+
+        abort(403); // 認証されてない場合
+    })->name('attendance-request.index');
+});
+

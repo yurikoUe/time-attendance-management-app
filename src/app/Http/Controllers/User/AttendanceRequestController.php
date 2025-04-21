@@ -93,10 +93,13 @@ class AttendanceRequestController extends Controller
 
         $requests = AttendanceRequest::with(['attendance.user', 'status'])
             ->where('status_id', $statusId)
-            ->orderByDesc('created_at')
+            ->whereHas('attendance', function ($query) {
+            $query->where('user_id', auth()->id()); // ログイン中ユーザーだけ
+        })
+            ->orderByDesc('created_at') //作成日時を降順(新しい順)
             ->get();
 
-        return view('user.requests.index', [
+        return view('user.request.index', [
             'requests' => $requests,
             'status' => $statusParam,
         ]);
