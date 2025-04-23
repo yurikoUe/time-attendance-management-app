@@ -8,9 +8,9 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\BreakController;
 use App\Http\Controllers\User\AttendanceListController as UserAttendanceListController;
 use App\Http\Controllers\Admin\AttendanceListController as AdminAttendanceListController;;
-use App\Http\Controllers\User\AttendanceRequestController  as UserAttendanceRequestController;
-use App\Http\Controllers\Admin\AttendanceRequestController as AdminAttendanceRequestController;
+use App\Http\Controllers\AttendanceRequestController;
 use App\Http\Controllers\Admin\StaffsController;
+use App\Http\Controllers\AttendanceListController;
 
 
 /*
@@ -24,67 +24,26 @@ use App\Http\Controllers\Admin\StaffsController;
 |
 */
 
-// 管理者ルート
+
+// 管理者認証前
 Route::get('/admin/login', function(){
     return view('admin.login');
 })->middleware('guest:admin')->name('admin.login');
 
-// 管理者認証ルート
-Route::middleware(['auth:admin'])->group(function () {
-    Route::redirect('/', '/admin/attendance/list');
-    Route::get('/admin/attendance/list', [AdminAttendanceListController::class, 'index'])->name('admin.attendance.index');
-    Route::get('/admin/staff/list', [StaffsController::class, 'index'])->name('staff.list');
-    Route::get('/admin/attendance/staff/{id}', [StaffsController::class, 'showAttendances'])->name('staff.attendance');
-    Route::get('/attendance/staff/{id}/export/{month}', [StaffsController::class, 'exportCsv'])->name('attendance.exportCsv');
-    // Route::get('/stamp_correction_request/list', [AdminAttendanceRequestController::class, 'index'])->name('attendance-request.index');
-});
-
-
-
-// ユーザールート
+// ユーザー認証前
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::get('/email/verify', [VerificationController::class, 'notice'])
     ->name('verification.notice');
 Route::post('/email/resend', [VerificationController::class, 'resend'])
     ->name('verification.resend');
 
-
-// ユーザー認証ルート
-Route::middleware(['auth:web', 'verified'])->group(function () {
-    Route::redirect('/', '/attendance'); //ログアウト後のリダイレクト先を変更
-
-    // 勤怠登録（出勤、退勤）
-    Route::post('/attendance/start', [UserAttendanceController::class, 'start'])->name('attendances.start');
-    Route::post('/attendance/end', [UserAttendanceController::class, 'end'])->name('attendances.end');
-    Route::get('/attendance', [UserAttendanceController::class, 'createAttendance'])
-    ->name('attendance.create');
-
-    // 勤怠登録（休憩）
-    Route::post('/breaks/start', [BreakController::class, 'start'])->name('breaks.start');
-    Route::post('/breaks/end', [BreakController::class, 'end'])->name('breaks.end');
-
-    // 勤怠一覧
-    Route::get('/attendance/list', [UserAttendanceListController::class, 'index'])->name('attendance.index');
-    
-    // 申請一覧画面
-    // Route::get('/stamp_correction_request/list', [UserAttendanceRequestController::class, 'index'])->name('attendance-request.index');
-});
-
-
-//ユーザーと管理者の両方とも認証 (カスタムミドルウェア)
+// ユーザーもしくは管理者なら認証
 Route::middleware(['admin.or.user'])->group(function () {
-    Route::get('/attendance/{id}', [UserAttendanceListController::class, 'show'])->name('attendance-detail.show');
-    Route::post('/attendance/{id}', [UserAttendanceRequestController::class, 'store'])->name('attendance-request.store');
-    Route::get('/stamp_correction_request/list', function () {
-        if (auth()->guard('admin')->check()) {
-            return app(AdminAttendanceRequestController::class)->index(request());
-        }
-
-        if (auth()->guard('web')->check()) {
-            return app(UserAttendanceRequestController::class)->index(request());
-        }
-
-        abort(403); // 認証されてない場合
-    })->name('attendance-request.index');
+    Route::get('/attendance/{id}', [AttendanceListController::class, 'show'])->name('attendance.show');
+    Route::post('/attendance/{id}', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
+    Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index'])->name('attendance-request.index');
 });
+
+
+
 

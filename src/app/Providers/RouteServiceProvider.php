@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
+    // Laravel 8以降は自動で名前空間を推測するので、これを削除しても問題ない
     // protected $namespace = 'App\\Http\\Controllers';
 
     /**
@@ -38,13 +39,21 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            // APIルートの設定
             Route::prefix('api')
                 ->middleware('api')
-                ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
+            // ユーザー用のルートを読み込み
             Route::middleware('web')
-                ->namespace($this->namespace)
+                ->group(base_path('routes/user.php'));
+
+            // 管理者用のルートを読み込み
+            Route::middleware('web')
+                ->group(base_path('routes/admin.php'));
+
+            // その他のwebルート（もし必要であれば）
+            Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
     }

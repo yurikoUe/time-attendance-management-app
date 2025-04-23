@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.admin' => \App\Http\Middleware\Authenticate::class, // 管理者用ガード
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -64,5 +65,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.or.user' => \App\Http\Middleware\AdminOrUser::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
     ];
+
+    // protected $middlewarePriority = [
+    //     \Illuminate\Session\Middleware\StartSession::class,
+    //     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+    //     \App\Http\Middleware\RoleMiddleware::class,
+    //     \Illuminate\Auth\Middleware\Authenticate::class,
+    // ];
 }

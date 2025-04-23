@@ -8,29 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminOrUser
 {
-    // public function handle($request, Closure $next)
-    // {
-    //     if (Auth::guard('web')->check() || Auth::guard('admin')->check()) {
-    //         return $next($request);
-    //     }
-
-    //     return redirect()->route('login');
-    // }
-
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        // 管理者としてログインしているか、ユーザーとしてログインしているかを確認
         if (Auth::guard('admin')->check()) {
-            // 管理者としてログインしていれば、管理者用のルートに遷移
+            // 管理者 → OK（verified なしで通す）
             return $next($request);
         }
 
         if (Auth::guard('web')->check()) {
-            // ユーザーとしてログインしていれば、ユーザー用のルートに遷移
+            // ユーザー → verified チェック
+            if (! $request->user()->hasVerifiedEmail()) {
+                // メール認証されてない → リダイレクト
+                return redirect()->route('verification.notice');
+            }
+
             return $next($request);
         }
 
-        // 両方の認証が通っていない場合はログイン画面へ
-        return redirect()->route('login'); // または 'admin.login'
+        // どちらにもログインしてない → 403
+        abort(403, 'Unauthorized');
     }
+
 }
