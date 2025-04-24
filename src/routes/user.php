@@ -22,7 +22,7 @@ Route::middleware(['auth:web', 'verified', 'role:user'])->group(function () {
     // 勤怠一覧
     Route::get('/attendance/list', [AttendanceListController::class, 'index'])->name('attendance.index');
 
- 
+    Route::post('/attendance/{id}', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
 
     
 });

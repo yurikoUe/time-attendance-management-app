@@ -1,0 +1,23 @@
+.button-wrap{
+    text-align: right;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 18px;
+}
+
+/* スマホサイズ（768px以下）の場合 */
+@media (max-width: 767px) {
+    .btn-button {
+        font-size: 18px;
+        width: 130px;
+        padding: 5px;
+        margin: 10px 0;
+    }
+}

@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/common/attendance-show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/common/btn.css') }}">
 @endsection
 
 @section('content')

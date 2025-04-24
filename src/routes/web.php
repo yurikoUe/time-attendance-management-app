@@ -1,17 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\AttendanceController as UserAttendanceController;
-use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\User\RegisteredUserController;
 use App\Http\Controllers\VerificationController;
-use App\Http\Controllers\BreakController;
-use App\Http\Controllers\User\AttendanceListController as UserAttendanceListController;
-use App\Http\Controllers\Admin\AttendanceListController as AdminAttendanceListController;;
 use App\Http\Controllers\AttendanceRequestController;
-use App\Http\Controllers\Admin\StaffsController;
 use App\Http\Controllers\AttendanceListController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +33,7 @@ Route::post('/email/resend', [VerificationController::class, 'resend'])
 // ユーザーもしくは管理者なら認証
 Route::middleware(['admin.or.user'])->group(function () {
     Route::get('/attendance/{id}', [AttendanceListController::class, 'show'])->name('attendance.show');
-    Route::post('/attendance/{id}', [AttendanceRequestController::class, 'store'])->name('attendance-request.store');
+    
     Route::get('/stamp_correction_request/list', [AttendanceRequestController::class, 'index'])->name('attendance-request.index');
 });
 

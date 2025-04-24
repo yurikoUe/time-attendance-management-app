@@ -8,6 +8,7 @@
   <title>Attendance Management</title>
   <link rel="stylesheet" href="{{ asset('css/common/sanitize.css') }}">
   <link rel="stylesheet" href="{{ asset('css/common/layout.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/common/message.css') }}">
   @yield('css')
 </head>
 

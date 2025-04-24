@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
+use App\Models\AttendanceRequest;
 
 class AttendanceListController extends Controller
 {
@@ -26,16 +27,60 @@ class AttendanceListController extends Controller
         $isAdmin = Auth::guard('admin')->check();
         $isUser = Auth::guard('web')->check();
 
-        // 管理者の場合の編集モード判定（例：申請がない時だけ直接修正できる）
-        $isEditMode = $isAdmin && !$isRequestPending;
-
+        // 管理者
         if ($isAdmin) {
-            return view('admin.attendance.show', compact('attendance', 'isRequestPending', 'isEditMode'));
-        } elseif ($isUser) {
-            return view('user.attendance.show', compact('attendance', 'isRequestPending'));
+            if ($isRequestPending) {
+                // 申請がある → 承認画面へリダイレクト
+                $attendanceRequest = $attendance->attendanceRequests()->where('status_id', 1)->first();
+
+                if (!$attendanceRequest) {
+                    abort(404, 'Attendance request not found');
+                }
+
+                return redirect()->route('stamp_correction_request.approve', ['attendance_correct_request' => $attendanceRequest->id]);
+
+            }
+                // 編集モード → 管理者編集ビュー
+                return view('shared.attendance.admin-edit-form', compact('attendance'));
+        }
+
+        // 一般ユーザー
+        if ($isUser) {
+            if ($isRequestPending) {
+                // 申請済み → 読み取り専用ビュー
+                return view('shared.attendance.user-readonly', compact('attendance'));
+            }
+                // 編集モード → ユーザー編集ビュー
+                return view('shared.attendance.user-edit-form', compact('attendance'));
         }
 
         abort(403, 'Unauthorized');
     }
 
+
+    public function approve(AttendanceRequest $attendance_correct_request)
+    {
+        // 関連する勤怠データを取得（承認対象）
+        $attendance = Attendance::with(['user', 'breakTimes', 'attendanceRequests'])
+            ->findOrFail($attendance_correct_request->attendance_id);
+
+        // 「承認待ち」状態かを判定（必要なら）
+        $isRequestPending = $attendance->attendanceRequests()->where('status_id', 1)->exists();
+
+        // 時刻をフォーマット
+        $attendance->formatted_clock_in = optional($attendance->clock_in)->format('H:i');
+        $attendance->formatted_clock_out = optional($attendance->clock_out)->format('H:i');
+        foreach ($attendance->breakTimes as $break) {
+            $break->formatted_break_start = optional($break->break_start)->format('H:i');
+            $break->formatted_break_end = optional($break->break_end)->format('H:i');
+        }
+
+        // 管理者だけが承認できるように
+        if (!Auth::guard('admin')->check()) {
+            abort(403, 'Unauthorized');
+        }
+
+        // 承認ビューに必要な変数を渡す
+        return view('admin.attendance.approve', compact('attendance', 'attendance_correct_request', 'isRequestPending'));
+    }
 }
