@@ -47,11 +47,73 @@ class AttendanceListController extends Controller
         // 一般ユーザー
         if ($isUser) {
             if ($isRequestPending) {
-                // 申請済み → 読み取り専用ビュー
-                return view('shared.attendance.user-readonly', compact('attendance'));
+                // 修正申請がある場合
+                $attendanceRequest = $attendance->attendanceRequests()
+                    ->where('status_id', 1)
+                    ->with(['breaks', 'details']) // 申請された休憩データも取得
+                    ->first();
+
+                $breaks = [];
+
+                $originalBreaks = collect($attendance->breakTimes)->map(function ($break) {
+                    return [
+                        'start' => optional($break->break_start)->format('H:i'),
+                        'end' => optional($break->break_end)->format('H:i'),
+                    ];
+                });
+
+                // 申請された before 値を使って修正対象かどうかを判断
+                $requestedBreaks = $attendanceRequest && $attendanceRequest->breaks->isNotEmpty()
+                    ? $attendanceRequest->breaks
+                    : collect();
+
+                // 1. 修正されなかった元の休憩をそのまま表示
+                $unmodifiedOriginals = $originalBreaks->filter(function ($original) use ($requestedBreaks) {
+                    return !$requestedBreaks->contains(function ($request) use ($original) {
+                        return
+                            date('H:i', strtotime($request->before_break_start)) === $original['start'] &&
+                            date('H:i', strtotime($request->before_break_end)) === $original['end'];
+                    });
+                });
+
+                // 2. 修正後の休憩時間（after 値）を表示
+                $modifiedBreaks = $requestedBreaks->map(function ($request) {
+                    return [
+                        'start' => $request->after_break_start ? date('H:i', strtotime($request->after_break_start)) : null,
+                        'end' => $request->after_break_end ? date('H:i', strtotime($request->after_break_end)) : null,
+                    ];
+                });
+
+                // 3. 結合して、フォーマット整える
+                $mergedBreaks = $unmodifiedOriginals
+                    ->merge($modifiedBreaks)
+                    ->map(function ($break) {
+                        return (object)[
+                            'formatted_break_start' => $break['start'],
+                            'formatted_break_end' => $break['end'],
+                        ];
+                    })
+                    ->values()
+                    ->toArray();
+
+                $breaks = $mergedBreaks;
+
+                
+                // 出退勤時刻
+                $clockIn = $attendanceRequest && $attendanceRequest->details && $attendanceRequest->details->after_clock_in
+                    ? date('H:i', strtotime($attendanceRequest->details->after_clock_in))
+                    : $attendance->formatted_clock_in;
+
+                $clockOut = $attendanceRequest && $attendanceRequest->details && $attendanceRequest->details->after_clock_out
+                    ? date('H:i', strtotime($attendanceRequest->details->after_clock_out))
+                    : $attendance->formatted_clock_out;
+
+                return view('shared.attendance.user-readonly', compact('attendance', 'breaks', 'clockIn', 'clockOut'));
+
             }
-                // 編集モード → ユーザー編集ビュー
-                return view('shared.attendance.user-edit-form', compact('attendance'));
+
+            // 編集モード → ユーザー編集ビュー
+            return view('shared.attendance.user-edit-form', compact('attendance'));
         }
 
         abort(403, 'Unauthorized');

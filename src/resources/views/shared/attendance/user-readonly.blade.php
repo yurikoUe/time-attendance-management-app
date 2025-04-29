@@ -8,8 +8,9 @@
 @endsection
 
 @section('content')
+
 <div class="attendance-detail">
-    <h1 class="attendance-detail__title">勤怠詳細（管理者）</h1>
+    <h1 class="attendance-detail__title">勤怠詳細</h1>
 
     <table class="attendance-detail__table">
         <tr>
@@ -24,11 +25,11 @@
         </tr>
         <tr>
             <th>出勤・退勤</th>
-            <td>{{ $attendance->formatted_clock_in }}</td>
+            <td>{{ $clockIn }}</td>
             <td>〜</td>
-            <td>{{ $attendance->formatted_clock_out }}</td>
+            <td>{{ $clockOut }}</td>
         </tr>
-        @foreach ($attendance->breakTimes as $break)
+        @foreach ($breaks as $break)
             <tr>
                 <th>休憩{{ $loop->iteration }}</th>
                 <td>{{ $break->formatted_break_start }}</td>

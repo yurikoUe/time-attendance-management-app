@@ -22,11 +22,11 @@
         </tr>
         <tr>
             <th>出勤・退勤</th>
-            <td>{{ $attendance->formatted_clock_in }}</td>
+            <td>{{ $clockIn }}</td>
             <td>〜</td>
-            <td>{{ $attendance->formatted_clock_out }}</td>
+            <td>{{ $clockOut }}</td>
         </tr>
-        @foreach ($attendance->breakTimes as $break)
+        @foreach ($breaks as $break)
             <tr>
                 <th>休憩{{ $loop->iteration }}</th>
                 <td>{{ $break->formatted_break_start }}</td>
@@ -35,8 +35,8 @@
             </tr>
         @endforeach
         <tr>
-            <th>備考（申請理由）</th>
-            <td colspan="3">{{ $attendance->attendanceRequests->first()->request_reason }}</td>
+            <th>備考</th>
+            <td colspan="3">{{ $attendanceRequest->request_reason }}</td>
         </tr>
     </table>
 

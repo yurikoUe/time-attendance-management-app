@@ -35,14 +35,14 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    <input type="time" name="clock_in" value="{{ old('clock_in', $attendance->formatted_clock_in) }}" class="attendance-detail__input">
+                    <input type="time" name="clock_in" value="{{ old('clock_in', $attendanceRequestDetail->after_clock_in ?? $attendance->formatted_clock_in) }}" class="attendance-detail__input">
                     @error('clock_in')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </td>
                 <td>〜</td>
                 <td>
-                    <input type="time" name="clock_out" value="{{ old('clock_out', $attendance->formatted_clock_out) }}" class="attendance-detail__input">
+                    <input type="time" name="clock_out" value="{{ old('clock_out', $attendanceRequestDetail->after_clock_out ?? $attendance->formatted_clock_out) }}" class="attendance-detail__input">
                     @error('clock_out')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
