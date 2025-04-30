@@ -16,20 +16,16 @@
   <header class="header">
     <div class="header__inner">
       <div class="header-utilities">
+        
+
+        <div class="header__logo">
+          <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
+        </div>
+
         @php
           $user = Auth::guard('web')->user();
           $admin = Auth::guard('admin')->user();
         @endphp
-
-        @if ($admin)
-          <a class="header__logo" href="{{ route('admin.attendance.index') }}">
-            <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
-          </a>
-        @elseif ($user)
-          <a class="header__logo" href="{{ route('attendance.index') }}">
-            <img src="{{ asset('images/logo.svg') }}" alt="サイトロゴ">
-          </a>
-        @endif
 
         <nav>
           @if ($admin)
