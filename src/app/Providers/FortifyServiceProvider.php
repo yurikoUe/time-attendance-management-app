@@ -94,7 +94,7 @@ class FortifyServiceProvider extends ServiceProvider
             }
 
             return back()->withErrors([
-                'email' => '管理者ログインに失敗しました。',
+                'email' => 'ログイン情報が登録されていません',
             ]);
         })->middleware(['web'])->name('admin.login.submit');
     }

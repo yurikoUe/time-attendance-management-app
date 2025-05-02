@@ -15,7 +15,7 @@ class AttendanceController extends Controller
 
     public function createAttendance()
     {
-        $user = auth()->user();  // ログインユーザーを取得
+        $user = auth()->user()->refresh();  // ログインユーザーを取得
         $today = \Carbon\Carbon::today();
 
         // 本日出勤しているかチェック
@@ -34,9 +34,9 @@ class AttendanceController extends Controller
         
         $userStatusName = $user->status->name;
         
-        $todayFormatted = $today->format('Y年m月d日') . '(' . $today->locale('ja')->isoFormat('dd') . ')'; // 日本語の曜日
+        $formattedDate = $today->format('Y年n月j日') . '(' . $today->locale('ja')->isoFormat('ddd') . ')';
 
-        return view('user.attendance.create', compact('todayFormatted', 'userStatusName'));
+        return view('user.attendance.create', compact('formattedDate', 'userStatusName'));
     }
 
     public function start(Request $request)
@@ -67,7 +67,7 @@ class AttendanceController extends Controller
             'clock_out' => null,
         ]);
 
-        //ステータスを「勤務中」に更新
+        //ステータスを「出勤中」に更新
         $user->status_id = UserStatus::where('name', '出勤中')->first()->id;
         $user->save();
 

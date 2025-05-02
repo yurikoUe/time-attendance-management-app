@@ -32,5 +32,4 @@ class AttendanceListController extends Controller
         
     }
 
-    // P
 }

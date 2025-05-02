@@ -14,7 +14,7 @@
 
 <div class="attendance">
     <div class="status">{{ $userStatusName }}</div>
-    <div class="date"> {{ $todayFormatted }} </div>
+    <div class="date"> {{ $formattedDate }} </div>
     <div class="time">{{ \Carbon\Carbon::now()->format('H:i') }}</div>
 
     @if ($userStatusName === '勤務外')
