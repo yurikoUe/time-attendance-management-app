@@ -186,8 +186,8 @@ DB_PASSWORD=laravel_pass
 
 
     テストファイル名一覧:  
-
-
+<!-- markdownlint-disable-file -->
+<!-- lang: en -->
 | 項目 | テストファイル名 |
 | ------------- | ------------- |
 | 認証機能（一般ユーザー）| RegisterUserTest.php |
