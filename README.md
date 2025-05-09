@@ -40,18 +40,15 @@ DB_PASSWORD=laravel_pass
 
 `php artisan key:generate`
 
-6. シンボリックリンクの作成をします
-
-`php artisan storage:link`
-
-7. マイグレーションの実行をします
+6. マイグレーションの実行をします
 
 `php artisan migrate`
 
-8. シーディングの実行
+7. シーディングの実行
 
 `php artisan db:seed`
 
+  
 ## メール認証の設定
 
 このアプリケーションでは、メール認証が必要です。ユーザーが登録後、「メール認証」を完了するまで、ログインできないように設定されています。以下の手順でメール認証を使用するための設定を行ってください。
@@ -79,7 +76,7 @@ DB_PASSWORD=laravel_pass
 
 
 
-
+  
 ## PHPunitテストの実行について
 
 1. テスト準備
@@ -177,12 +174,6 @@ DB_PASSWORD=laravel_pass
         ```
 
 
-2. 外部決済システムStripeを使用しているため、PHPunitテストをするためにMockery が必要です。以下のコマンドでインストールします。
-
-    ```
-    composer require mockery/mockery --dev
-    ```
-
 
 3. テスト実行
 
@@ -192,22 +183,30 @@ DB_PASSWORD=laravel_pass
     vendor/bin/phpunit tests/Feature/LoginTest.php  #テストファイル名を変えて実行してください
     ```
 
+
+
     テストファイル名一覧:  
-        - 1. 会員登録機能テスト         RegisterTest.php  
-        - 2. ログイン機能テスト         LoginTest.php  
-        - 3. ログアウト機能テスト       LogoutTest.php  
-        - 4. 商品一覧取得テスト         ProductListTest.php  
-        - 5. マイリスト取得テスト       MyListFeatureTest.php  
-        - 6. 商品検索機能テスト         ProductSearchTest.php  
-        - 7. 商品詳細情報取得テスト     ProductDetailTest.php  
-        - 8. いいね機能テスト          LikeProductTest.php  
-        - 9. コメント送信機能テスト     CommentSubmissionTest.php  
-        - 10. 商品購入機能テスト        PurchaseTest.php  
-        - 11. 支払い方法選択機能テスト  未実装  
-        - 12. 配送先変更機能            DeliveryAddressChangeTest.php  
-        - 13. ユーザー情報取得         UserProfileTest.php  
-        - 14. ユーザー情報変更         UserProfileEditTest.php  
-        - 15. 出品商品情報登録         ExhibitionTest.php  
+
+
+| 項目 | テストファイル名 |
+| ------------- | ------------- |
+| 認証機能（一般ユーザー）| RegisterUserTest.php |
+| ログイン認証機能（一般ユーザー）| UserLoginTest.php |
+| ログイン認証機能（管理者）| AdminLoginTest.php |
+| 日時取得機能| AttendanceDateTimeTest.php |
+| ステータス確認機能| AttendanceStatusTest.php |
+| 出勤機能| AttendanceClockInTest.php |
+| 休憩機能| BreakFunctionTest.php |
+| 退勤機能| AttendanceClockOutTest.php |
+| 退勤一覧情報取得機能（一般ユーザー）| AttendanceListTest.php |
+| 勤怠詳細情報取得機能（一般ユーザー）| AttendanceDetailTest.php |
+| 退勤詳細情報修正機能（一般ユーザー）| AttendanceEditValidationTest.php |
+| 勤怠一覧情報取得機能（管理者）| AdminAttendanceListTest.php |
+| 勤怠詳細情報取得・修正機能（管理者）| AdminAttendanceDetailTest.php |
+| ユーザー情報取得機能（管理者）| AdminStaffAttendanceTest.php |
+| 勤怠情報修正機能（管理者）| AttendanceCorrectionRequestTest.php |
+| メール認証機能| MailVerificationTest.php |
+
 
 
 
