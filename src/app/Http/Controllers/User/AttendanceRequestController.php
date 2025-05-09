@@ -77,7 +77,7 @@ class AttendanceRequestController extends Controller
 
             DB::commit();
 
-            return redirect()->route('attendance-detail.show', ['id' => $attendance->id])
+            return redirect()->route('attendance.show', ['id' => $attendance->id])
                 ->with('success', '申請が完了しました');
 
         } catch (\Exception $e) {

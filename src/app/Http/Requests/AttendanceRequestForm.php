@@ -67,12 +67,19 @@ class AttendanceRequestForm extends FormRequest
                 $start = $break['break_start'] ?? null;
                 $end = $break['break_end'] ?? null;
 
-                if ($start && $clockIn && $start < $clockIn){
+                // 休憩開始時間が出勤時間より前
+                if ($start && $clockIn && $start < $clockIn) {
                     $validator->errors()->add("breaks.$index.break_start", '休憩時間が勤務時間外です');
                 }
 
-                if ($end && $clockOut && $end > $clockOut){
+                // 休憩終了時間が退勤時間より後
+                if ($end && $clockOut && $end > $clockOut) {
                     $validator->errors()->add("breaks.$index.break_end", '休憩時間が勤務時間外です');
+                }
+
+                // 休憩終了時間が休憩開始時間より前
+                if ($start && $end && $start >= $end) {
+                    $validator->errors()->add("breaks.$index.break_end", '休憩終了時間が休憩開始時間より後でなければなりません');
                 }
             }
         });

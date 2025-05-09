@@ -40,7 +40,8 @@
         </tr>
     </table>
 
-    <form action="" method="POST" class="attendance-detail__form">
+    <form action="{{ route('stamp_correction_request.update', ['attendance_correct_request' => $attendanceRequest->id]) }}" method="POST" class="attendance-detail__form">
+
         @csrf
         <div class="button-wrap">
             <button name="action" value="approve" class="button">承認</button>
