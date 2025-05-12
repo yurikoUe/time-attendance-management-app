@@ -16,7 +16,7 @@ class AttendanceSeeder extends Seeder
      */
     public function run()
     {
-        //ID 1以外のユーザーのレコードを作成
+        //全全ユーザーのレコードを作成
         $users = User::all();
 
         foreach ($users as $user){
@@ -34,11 +34,11 @@ class AttendanceSeeder extends Seeder
         $this->createAttendance($user, Carbon::today()->subDay(2), 9, 18);
 
         // 深夜勤務・日を跨ぐ勤務
-        $this->createAttendance($user, Carbon::today()->subDay(1), 22, 6, true);
+        $this->createAttendance($user, Carbon::today()->subDay(5), 22, 6, true);
 
         // 2ヶ月前から今日までのデータ
         $startDate = Carbon::today()->subMonths(2);
-        $endDate = Carbon::today();
+        $endDate = Carbon::yesterday();
 
         for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
             $this->createAttendance($user, $date->copy(), 9, 18);

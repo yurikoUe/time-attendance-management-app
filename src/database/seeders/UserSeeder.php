@@ -69,8 +69,8 @@ class UserSeeder extends Seeder
             'name' => '中西 敏夫',
             'email' => 'toshio@example.com',
             'password' => Hash::make('password'),
-            'status_id' => 1, 
-            'email_verified_at' => null, // 未認証
+            'status_id' => 1,
+            'email_verified_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

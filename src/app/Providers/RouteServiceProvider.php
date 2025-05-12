@@ -26,8 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // Laravel 8以降は自動で名前空間を推測するので、これを削除しても問題ない
-    // protected $namespace = 'App\\Http\\Controllers';
+    
 
     /**
      * Define your route model bindings, pattern filters, etc.

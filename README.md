@@ -74,10 +74,33 @@ DB_PASSWORD=laravel_pass
 3. ログインの制御確認
 - usersテーブルのemail_verified_atカラムが null の場合、ログインできません。登録後、認証をすることにより、email_verified_atカラムがに認証時の時間が入ります。
 
+## ルーティング構成について
+
+    本プロジェクトでは役割ごとにルートを分割管理しており、routes/ 配下に web.php のほか user.php（一般ユーザー用）、admin.php（管理者用）のルートファイルを設置しています。RouteServiceProvider にて読み込み設定済みです。    
+
+## テストアカウント  
+
+# 一般ユーザー
+| メールアドレス | パスワード |
+| ------------- | ------------- |
+| taro@example.com | password |
+| reina@example.com | password |
+| masuda@example.com | password |
+| yamamoto@example.com | password |
+| tomomi@example.com | password |
+| toshio@example.com | password |
+
+
+# 管理者
+| メールアドレス | パスワード |
+| ------------- | ------------- |
+| admin@example.com | adminpassword |
+
 
 
   
-## PHPunitテストの実行について
+  
+## PHPUnitを利用したテストに関して
 
 1. テスト準備
 
@@ -134,9 +157,9 @@ DB_PASSWORD=laravel_pass
         ],
         ```
 
-    3. テスト用の.envファイル作成
+    3. テスト用の.envファイルの設定
 
-        1. PHPコンテナにログインし、.envをコピーして.env.testingというファイルを作成します。
+        1. .env.testingというファイルがなければ、PHPコンテナにログインし、.envをコピーして.env.testingというファイルがなければ作成します。
 
         ```PHPコンテナ上
         cp .env .env.testing
@@ -180,7 +203,7 @@ DB_PASSWORD=laravel_pass
     テストは以下のコマンドで実行できます。
 
     ```
-    vendor/bin/phpunit tests/Feature/LoginTest.php  #テストファイル名を変えて実行してください
+    vendor/bin/phpunit tests/Feature/RegisterUserTest.php  #テストファイル名を変えて実行してください
     ```
 
 

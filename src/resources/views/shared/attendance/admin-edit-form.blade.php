@@ -69,9 +69,19 @@
             @endforeach
             <tr>
                 <th>休憩追加</th>
-                <td><input type="time" name="breaks[{{ count($attendance->breakTimes) }}][break_start]" class="attendance-detail__input"></td>
+                <td>
+                    <input type="time" name="breaks[{{ count($attendance->breakTimes) }}][break_start]" class="attendance-detail__input">
+                    @error('breaks.' . count($attendance->breakTimes) . '.break_start')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </td>
                 <td>〜</td>
-                <td><input type="time" name="breaks[{{ count($attendance->breakTimes) }}][break_end]" class="attendance-detail__input"></td>
+                <td>
+                    <input type="time" name="breaks[{{ count($attendance->breakTimes) }}][break_end]" class="attendance-detail__input">
+                    @error('breaks.' . count($attendance->breakTimes) . '.break_end')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>備考</th>

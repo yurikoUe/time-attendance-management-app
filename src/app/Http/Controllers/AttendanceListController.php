@@ -112,7 +112,7 @@ class AttendanceListController extends Controller
 
             }
 
-            // 編集モード → ユーザー編集ビュー
+            // ユーザー編集ビュー
             return view('shared.attendance.user-edit-form', compact('attendance'));
         }
 
