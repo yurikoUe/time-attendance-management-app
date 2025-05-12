@@ -54,17 +54,26 @@ class FortifyServiceProvider extends ServiceProvider
 
             // 管理者ログインかどうかをURLde判定
             if ($request->is('admin/*')){
+                 // ユーザーがログイン中ならログアウト
+                if (Auth::guard('web')->check()) {
+                    Auth::guard('web')->logout();
+                }
+
                 $admin = Admin::where('email', $request->email)->first();
-                
-                if($admin && Hash::check($request->password, $admin->password)){
+                if ($admin && Hash::check($request->password, $admin->password)) {
                     Auth::guard('admin')->login($admin);
-                    return $admin; // Fortifyがadminガードでログイン
-                } 
+                    return $admin;
+                }
                 
             } else {
+                // 管理者がログイン中ならログアウト
+                if (Auth::guard('admin')->check()) {
+                    Auth::guard('admin')->logout();
+                }
+
                 $user = User::where('email', $request->email)->first();
-                if ($user && Hash::check($request->password, $user->password)){
-                    return $user; // Fortifyがwebガードでログイン
+                if ($user && Hash::check($request->password, $user->password)) {
+                    return $user;
                 }
             }
 

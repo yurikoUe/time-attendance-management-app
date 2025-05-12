@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="attendance-detail">
-    <h1 class="attendance-detail__title">勤怠詳細（管理者）</h1>
+    <h1 class="attendance-detail__title">勤怠詳細</h1>
         
     <form action="{{ route('attendance-request.store', ['id' => $attendance->id]) }}" method="POST" class="attendance-detail__form">
         @csrf
@@ -63,7 +63,7 @@
                 <th>休憩追加</th>
                 <td>
                     <input type="time" name="breaks[{{ count($attendance->breakTimes) }}][break_start]" class="attendance-detail__input">
-                    @error("breaks.{$loop->index}.break_start")
+                    @error('breaks.' . count($attendance->breakTimes) . '.break_start')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </td>

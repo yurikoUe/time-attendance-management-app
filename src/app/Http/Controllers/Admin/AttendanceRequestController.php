@@ -148,7 +148,7 @@ class AttendanceRequestController extends Controller
             }
         });
 
-
+        $attendance->refresh();
         return redirect()->route('attendance.show', ['id' => $attendance_correct_request->attendance_id])
             ->with('success', '修正を承認しました');
     }
