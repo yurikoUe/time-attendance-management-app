@@ -55,11 +55,6 @@ class AttendanceRequestForm extends FormRequest
                 $in = Carbon::createFromFormat('H:i', $clockIn);
                 $out = Carbon::createFromFormat('H:i', $clockOut);
 
-                // 退勤が出勤よりも前なら、日付を+1日して比較
-                if ($out <= $in) {
-                    $out->addDay();
-                }
-
                 if ($in >= $out) {
                     $validator->errors()->add('clock_in', '出勤時間もしくは退勤時間が不適切な値です');
                 }
@@ -70,19 +65,8 @@ class AttendanceRequestForm extends FormRequest
                     $startRaw = $break['break_start'] ?? null;
                     $endRaw = $break['break_end'] ?? null;
 
-                    if ($startRaw) {
-                        $start = Carbon::createFromFormat('H:i', $startRaw);
-                        if ($start < $in) {
-                            $start->addDay(); // 日を跨いでいる可能性
-                        }
-                    }
-
-                    if ($endRaw) {
-                        $end = Carbon::createFromFormat('H:i', $endRaw);
-                        if ($end < $in) {
-                            $end->addDay(); // 日を跨いでいる可能性
-                        }
-                    }
+                    $start = $startRaw ? Carbon::createFromFormat('H:i', $startRaw) : null;
+                    $end = $endRaw ? Carbon::createFromFormat('H:i', $endRaw) : null;
 
                     if (isset($start) && $start < $in) {
                         $validator->errors()->add("breaks.$index.break_start", '休憩時間が勤務時間外です');

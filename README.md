@@ -159,7 +159,7 @@ DB_PASSWORD=laravel_pass
 
     3. テスト用の.envファイルの設定
 
-        1. .env.testingというファイルがなければ、PHPコンテナにログインし、.envをコピーして.env.testingというファイルがなければ作成します。
+        1. .env.testingというファイルがなければ、PHPコンテナにログインし、.envをコピーして.env.testingというファイルを作成します。
 
         ```PHPコンテナ上
         cp .env .env.testing
