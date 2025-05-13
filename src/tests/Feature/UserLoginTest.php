@@ -24,7 +24,7 @@ class UserLoginTest extends TestCase
     /** @test */
     public function メールアドレスが未入力の場合バリデーションメッセージが表示される()
     {
-        $user = Admin::factory()->create([
+        $user = User::factory()->create([
             'password' => bcrypt('password123'),
         ]);
 

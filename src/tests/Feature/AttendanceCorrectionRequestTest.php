@@ -148,8 +148,7 @@ class AttendanceCorrectionRequestTest extends TestCase
         ]);
         // 承認後のステータスが「承認済み」になっているか確認
         $attendanceRequest->refresh();
-        $response->dump(); 
-        dd($attendanceRequest->toArray());
+
         $this->assertEquals(2, $attendanceRequest->status_id); // 承認済みのID (2) を確認
 
         // 勤怠情報の修正が反映されているか確認
