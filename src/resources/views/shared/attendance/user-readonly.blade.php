@@ -39,7 +39,7 @@
         @endforeach
         <tr>
             <th>備考</th>
-            <td colspan="3">{{ $attendance->attendanceRequests->first()->request_reason }}</td>
+            <td colspan="3">{{ optional($attendance->attendanceRequests->last())->request_reason }}</td>
         </tr>
     </table>
 

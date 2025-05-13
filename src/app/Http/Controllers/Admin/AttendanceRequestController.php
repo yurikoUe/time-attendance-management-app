@@ -88,7 +88,7 @@ class AttendanceRequestController extends Controller
 
     }
 
-    //スタッフの申請に基づき修正（承認→更新）
+    // スタッフの申請に基づき修正（承認→更新）
     public function approveUpdate(Request $request, AttendanceRequest $attendance_correct_request)
     {
         if (!Auth::guard('admin')->check()) {
@@ -111,22 +111,31 @@ class AttendanceRequestController extends Controller
             // 元の break を退避
             $originalBreaks = $attendance->breakTimes()->get()->keyBy('id');
 
-            // 一旦削除
+            // 一旦全削除
             $attendance->breakTimes()->delete();
 
-            // 変更のあった元BreakのIDを記録
+            // 修正された元BreakのIDを記録
             $updatedOriginalIds = [];
 
+            // すでに after で登録された時間帯を記録（H:i-H:i 形式）
+            $addedBreakTimes = [];
+
+            // 修正申請の after 休憩時間を登録
             foreach ($attendance_correct_request->breaks as $reqBreak) {
                 $attendance->breakTimes()->create([
                     'break_start' => $reqBreak->after_break_start,
                     'break_end' => $reqBreak->after_break_end,
                 ]);
 
+                // 追加済として記録
+                $addedBreakTimes[] = date('H:i', strtotime($reqBreak->after_break_start)) . '-' .
+                                    date('H:i', strtotime($reqBreak->after_break_end));
+
+                // 変更された break の ID を記録
                 if (!empty($reqBreak->before_break_start) && !empty($reqBreak->after_break_start) &&
                     ($reqBreak->before_break_start !== $reqBreak->after_break_start ||
                     $reqBreak->before_break_end !== $reqBreak->after_break_end)) {
-                    // 変更されたbreakと見なす（original IDは明示的でなくてもこの条件でOK）
+
                     foreach ($originalBreaks as $id => $ob) {
                         if ($ob->break_start->format('H:i') === date('H:i', strtotime($reqBreak->before_break_start)) &&
                             $ob->break_end->format('H:i') === date('H:i', strtotime($reqBreak->before_break_end))) {
@@ -137,9 +146,11 @@ class AttendanceRequestController extends Controller
                 }
             }
 
-            // 修正されなかった元休憩時間を再登録
+            // 修正されなかった元の休憩時間を復元（既に登録済みのものは除く）
             foreach ($originalBreaks as $id => $ob) {
-                if (!in_array($id, $updatedOriginalIds)) {
+                $timeKey = $ob->break_start->format('H:i') . '-' . $ob->break_end->format('H:i');
+
+                if (!in_array($id, $updatedOriginalIds) && !in_array($timeKey, $addedBreakTimes)) {
                     $attendance->breakTimes()->create([
                         'break_start' => $ob->break_start,
                         'break_end' => $ob->break_end,
@@ -148,10 +159,12 @@ class AttendanceRequestController extends Controller
             }
         });
 
-        $attendance->refresh();
         return redirect()->route('attendance.show', ['id' => $attendance_correct_request->attendance_id])
             ->with('success', '修正を承認しました');
     }
+
+
+
 
 
     //管理者が直接修正

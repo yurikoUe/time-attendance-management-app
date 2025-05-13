@@ -79,7 +79,7 @@
                 <th>備考</th>
                 <td colspan="3">
                     <textarea name="request_reason" class="attendance-detail__input--reason"></textarea>
-                    @error('breaks.' . count($attendance->breakTimes) . '.break_end')
+                    @error('request_reason')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </td>
