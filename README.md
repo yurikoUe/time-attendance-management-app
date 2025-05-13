@@ -80,7 +80,7 @@ DB_PASSWORD=laravel_pass
 
 ## テストアカウント  
 
-# 一般ユーザー
+### 一般ユーザー
 | メールアドレス | パスワード |
 | ------------- | ------------- |
 | taro@example.com | password |
@@ -91,7 +91,7 @@ DB_PASSWORD=laravel_pass
 | toshio@example.com | password |
 
 
-# 管理者
+### 管理者
 | メールアドレス | パスワード |
 | ------------- | ------------- |
 | admin@example.com | adminpassword |
@@ -209,26 +209,25 @@ DB_PASSWORD=laravel_pass
 
 
     テストファイル名一覧:  
-<!-- markdownlint-disable-file -->
-<!-- lang: en -->
-| 項目 | テストファイル名 |
-| ------------- | ------------- |
-| 認証機能（一般ユーザー）| RegisterUserTest.php |
-| ログイン認証機能（一般ユーザー）| UserLoginTest.php |
-| ログイン認証機能（管理者）| AdminLoginTest.php |
-| 日時取得機能| AttendanceDateTimeTest.php |
-| ステータス確認機能| AttendanceStatusTest.php |
-| 出勤機能| AttendanceClockInTest.php |
-| 休憩機能| BreakFunctionTest.php |
-| 退勤機能| AttendanceClockOutTest.php |
-| 退勤一覧情報取得機能（一般ユーザー）| AttendanceListTest.php |
-| 勤怠詳細情報取得機能（一般ユーザー）| AttendanceDetailTest.php |
-| 退勤詳細情報修正機能（一般ユーザー）| AttendanceEditValidationTest.php |
-| 勤怠一覧情報取得機能（管理者）| AdminAttendanceListTest.php |
-| 勤怠詳細情報取得・修正機能（管理者）| AdminAttendanceDetailTest.php |
-| ユーザー情報取得機能（管理者）| AdminStaffAttendanceTest.php |
-| 勤怠情報修正機能（管理者）| AttendanceCorrectionRequestTest.php |
-| メール認証機能| MailVerificationTest.php |
+
+    | 項目 | テストファイル名 |
+    | ------------- | ------------- |
+    | 認証機能（一般ユーザー）| RegisterUserTest.php |
+    | ログイン認証機能（一般ユーザー）| UserLoginTest.php |
+    | ログイン認証機能（管理者）| AdminLoginTest.php |
+    | 日時取得機能| AttendanceDateTimeTest.php |
+    | ステータス確認機能| AttendanceStatusTest.php |
+    | 出勤機能| AttendanceClockInTest.php |
+    | 休憩機能| BreakFunctionTest.php |
+    | 退勤機能| AttendanceClockOutTest.php |
+    | 退勤一覧情報取得機能（一般ユーザー）| AttendanceListTest.php |
+    | 勤怠詳細情報取得機能（一般ユーザー）| AttendanceDetailTest.php |
+    | 退勤詳細情報修正機能（一般ユーザー）| AttendanceEditValidationTest.php |
+    | 勤怠一覧情報取得機能（管理者）| AdminAttendanceListTest.php |
+    | 勤怠詳細情報取得・修正機能（管理者）| AdminAttendanceDetailTest.php |
+    | ユーザー情報取得機能（管理者）| AdminStaffAttendanceTest.php |
+    | 勤怠情報修正機能（管理者）| AttendanceCorrectionRequestTest.php |
+    | メール認証機能| MailVerificationTest.php |
 
 
 
